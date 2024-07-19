@@ -1,0 +1,193 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.4rem;
+}
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+  font-size: 18px;
+  background-color: rgba(255, 250, 250, 1);
+  z-index: 1000;
+}
+
+nav img {
+  padding-left: 5px;
+  padding-top: 5px;
+  width: 160px;
+  height: 80px;
+  margin: 4px;
+}
+
+nav .logo {
+  cursor: pointer;
+  height: 40px;
+  font-weight: 500;
+  margin-left: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: black;
+}
+
+nav .logo p {
+  color: black;
+  line-height: 12px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  padding: 2px;
+}
+
+nav ul li {
+  padding: 3px;
+  position: relative;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #005c78;
+  position: relative;
+}
+
+nav ul li a::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: transparent; /* Start with transparent background */
+  transform: scaleX(0); /* Initial state for the animation */
+  transform-origin: bottom left;
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transition for both transform and background-color */
+}
+
+nav ul li a:hover::before {
+  background-color: #ee5469; /* Change to your desired hover color */
+  transform: scaleX(1); /* Expand the underline on hover */
+}
+
+.active {
+  color: #ee5469;
+  /* text-decoration: underline; */
+}
+
+#bar {
+  display: none;
+}
+
+#close {
+  color: transparent;
+  cursor: default;
+  font-size: 0;
+}
+
+@media screen and (max-width: 440px) {
+  nav {
+    justify-content: space-between;
+  }
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: fixed;
+    height: 100vh;
+    width: 200px;
+    top: 0px;
+    right: -300px;
+    background-color: #e3e6f3;
+    box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
+    padding: 80px 0 0 10px;
+    transition: 0.3s;
+  }
+  nav ul.display {
+    right: 0px;
+  }
+  nav ul li {
+    margin-bottom: 25px;
+  }
+  #bar {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+  }
+  #close {
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    left: 15px;
+    color: #222;
+    font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 440px) and (max-width: 675px) {
+  nav {
+    justify-content: space-between;
+  }
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: fixed;
+    height: 100vh;
+    width: 200px;
+    top: 0px;
+    right: -300px;
+    background-color: #e3e6f3;
+    box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
+    padding: 80px 0 0 10px;
+    transition: 0.3s;
+  }
+  nav ul.display {
+    right: 0px;
+  }
+  nav ul li {
+    margin-bottom: 25px;
+  }
+  #bar {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+  }
+  #close {
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    left: 15px;
+    color: #222;
+    font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 675px) {
+  nav {
+    justify-content: space-between;
+  }
+  nav ul {
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 20px;
+  }
+  nav ul li {
+    padding: 10px;
+    font-size: 18px;
+  }
+}

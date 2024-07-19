@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Fontawesome -->
+    <script
+      src="https://kit.fontawesome.com/42a182743f.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/postDetails.css" />
+    <!-- <link rel="stylesheet" href="/css/navbar.css" /> -->
+    <title>Post details</title>
+    <link rel="icon" type="image/png" href="/images/feather_transparent3.png" />
+  </head>
+  <body>
+    <!-- nav -->
+    <%- include("../partials/navbar.ejs") %>
+    <!-- content -->
+    <section class="container-flex">
+      <!-- main -->
+      <main class="post-details">
+        <article class="post-details-content">
+          <h1 class="post-title"><%= post?.title %></h1>
+          <img src="<%= post?.image %>" alt="post image" class="post-image" />
+      </main>
+      <!-- aside -->
+      <aside class="sidebar">
+        <a href="https://theopenjournal.xyz/api/v1/users/visit/<%= post?.user?.username %>" 
+          style="text-decoration: none; color: black;">
+          <div class="about-me">
+            <h2 style="color: rgb(236, 88, 19);">Author</h2>
+            <img class="avatar" src="<%= post?.user?.profileImage %>" alt="" />
+            <h3 class="about-name"><%= post?.user?.username %></h3>
+            <h4 class="about-name" style="font-size: 12px;"><%= post?.user?.email %></h4>
+          </div>
+          <% if (post?.user?._id?.toString() === userAuth?.toString()) { %>
+          <div class="post-details-action">
+            <!-- <p style="display: none;">jj</p> -->
+            <a href="/api/v1/posts/get-form-update/<%= post?._id %>" class="anchor">
+              <i class="fas fa-edit"></i>
+            </a>
+            <form
+              class="delete-post-form"
+              action="/api/v1/posts/<%= post?._id %>?_method=DELETE"
+              method="post"
+            >
+              <button type="submit" class="delete-post-button">
+                <i class="fa-solid fa-trash delete"></i>
+              </button>
+            </form>
+          </div>
+          <% } %>
+        </a>
+      </aside>
+      
+      
+    </section>
+    <div class="post-body responsive">
+      <div class="pb">Category:</div>
+      <p><%= post?.category %></p>
+    </div>
+    <div class="post-body">
+      <div class="pb">Description:</div>
+      <p><%= post?.description %></p>
+    </div>
+        </article>
+        <!-- Comment form -->
+        <div class="comment-form">
+          <h2>Leave a comment</h2>
+          <form action="/api/v1/comments/<%= post?._id %>" method="POST">
+            <div class="form-group">
+              <input type="text" name="message" id="name" />
+            </div>
+            <button type="submit" class="btn">Submit</button>
+          </form>
+        </div>
+        <!-- comments -->
+        <div class="comments">
+          <h2>Comments</h2>
+          <!-- loop comments  -->
+          <% post?.comments?.forEach((comment) => { %>
+          <div class="comment">
+            <div class="comment-info">
+              <img
+                src="<%= comment?.user?.profileImage %>"
+                alt=""
+                class="comment-author-image"
+              />
+              <div class="comment-author">
+                <h4><%= comment?.user?.username %></h4>
+                <span>Created on: <%= comment?.createdAt?.toLocaleDateString() %></span>
+              </div>
+            </div>
+            <div class="comment-body">
+              <p><%= comment?.message %></p>
+              <!-- delete/update icon -->
+              <% if (comment?.user?._id?.toString() === userAuth?.toString()) { %>
+              <div class="post-comments-action">
+                <a href="/api/v1/comments/<%= comment?._id %>" class="comment-update">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <form
+                  class="delete-comment-form"
+                  action="/api/v1/comments/<%= comment?._id %>?_method=DELETE&postID=<%= post?._id %>"
+                  method="post"
+                >
+                  <button type="submit" class="delete-comment-button">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </form>
+              </div>
+              <% } %>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+    <!-- footer -->
+    <%- include("../partials/footer.ejs") %>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const deletePostButtons = document.querySelectorAll(".delete-post-button");
+        const deleteCommentButtons = document.querySelectorAll(".delete-comment-button");
+
+        deletePostButtons.forEach(button => {
+          button.addEventListener("click", function(event) {
+            const confirmed = confirm("Do you want to delete this post?");
+            if (!confirmed) {
+              event.preventDefault();
+            }
+          });
+        });
+
+        deleteCommentButtons.forEach(button => {
+          button.addEventListener("click", function(event) {
+            const confirmed = confirm("Do you want to delete this comment?");
+            if (!confirmed) {
+              event.preventDefault();
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

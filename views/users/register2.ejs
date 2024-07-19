@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - www.codingnepalweb.com -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Register</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/login2.css" />
+    <link rel="icon" type="image/png" href="/images/feather_transparent3.png" />
+  </head>
+  <body>
+    <%-include("../partials/navbar.ejs") %>
+
+    <div class="wrapper">
+      <form
+        action="/api/v1/users/register"
+        method="POST"
+        onsubmit="return validateForm()"
+      >
+        <h2>Register</h2>
+        <%if(error){%>
+        <small class="error">
+          <i class="fas fa-exclamation-circle"></i>
+          <%=error%>
+        </small>
+        <%}%>
+        <div class="input-field">
+          <label for="name">User Name *</label>
+          <input type="text" name="username" required />
+        </div>
+
+        <div class="input-field">
+          <label for="email">Email *</label>
+          <input type="email" name="email" required />
+        </div>
+
+        <div class="input-field">
+          <label for="password">Enter your password *</label>
+          <div class="show-button">
+            <input
+              type="password"
+              name="password"
+              id="passwordField"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$"
+              title="Password must contain at least 8 characters, one uppercase, one lowercase, one digit, and one special character"
+              required
+            />
+            <button type="button" id="togglePassword">
+              <i class="fa-solid fa-eye-slash" style="color: black"></i>
+            </button>
+          </div>
+        </div>
+        <div class="input-field">
+          <label for="confirmPassword">Confirm Password *</label>
+          <div class="show-button">
+            <input
+              type="password"
+              name="confirmPassword"
+              id="confirmPasswordField"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$"
+              title="Password must contain at least 8 characters, one uppercase, one lowercase, one digit, and one special character"
+              required
+            />
+            <button type="button" id="togglePasswordConfirm">
+              <i class="fa-solid fa-eye-slash" style="color: black"></i>
+            </button>
+          </div>
+        </div>
+        <span id="passwordMatch" style="font-size: 15px"></span>
+        <button type="submit">Click to verify your email</button>
+        <div class="register">
+          <p>
+            Already have an account?
+            <a href="/api/v1/users/login">Login</a>
+          </p>
+        </div>
+      </form>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const passwordField = document.getElementById("passwordField");
+        const togglePassword = document.getElementById("togglePassword");
+
+        togglePassword.addEventListener("click", function () {
+          const type =
+            passwordField.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          passwordField.setAttribute("type", type);
+          // Change the Font Awesome icon based on the input type
+          togglePassword.innerHTML =
+            type === "password"
+              ? '<i class="fas fa-eye-slash" style="color: black"></i>'
+              : '<i class="fas fa-eye" style="color: black"></i>';
+        });
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        const passwordField = document.getElementById("confirmPasswordField");
+        const togglePassword = document.getElementById("togglePasswordConfirm");
+
+        togglePassword.addEventListener("click", function () {
+          const type =
+            passwordField.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          passwordField.setAttribute("type", type);
+          // Change the Font Awesome icon based on the input type
+          togglePassword.innerHTML =
+            type === "password"
+              ? '<i class="fas fa-eye-slash" style="color: black"></i>'
+              : '<i class="fas fa-eye" style="color: black"></i>';
+        });
+      });
+    </script>
+    <script>
+      function validateForm() {
+        const passwordField = document.getElementById("passwordField");
+        const confirmPasswordField = document.getElementById(
+          "confirmPasswordField"
+        );
+        const passwordMatch = document.getElementById("passwordMatch");
+        const password = passwordField.value;
+        const confirmPassword = confirmPasswordField.value;
+
+        if (password !== confirmPassword) {
+          passwordMatch.textContent =
+            "Confirm password does not match your password.";
+          passwordMatch.style.color = "red";
+          return false; // Prevent form submission
+        } else {
+          passwordMatch.textContent = ""; // Clear any previous error message
+          return true; // Allow form submission
+        }
+      }
+    </script>
+    <div class="foot"><%-include("../partials/footer.ejs") %></div>
+  </body>
+</html>

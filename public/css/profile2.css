@@ -1,0 +1,317 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-style: normal;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.baap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.profile {
+  width: 85%;
+  position: relative;
+  background: #fff;
+  border: 1px solid #d5d5d5;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.profile .image {
+  background-color: pink;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border: 5px solid #fff;
+  width: 100%;
+  height: 300px;
+}
+
+.profile .image img {
+  width: auto;
+  height: 300px;
+  object-fit: cover;
+}
+
+.profile .uploadCover {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  border: 2px solid white;
+  border-radius: 50%;
+  font-size: 17px;
+  padding: 3px 5px;
+  background-color: white;
+  cursor: pointer; /* Add cursor pointer */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.profile .uploadCover:hover {
+  background-color: #eee; /* Lighten background on hover */
+}
+
+.profile .user {
+  position: relative;
+  padding: 0px 5px 5px;
+}
+
+.profile .user .avatar {
+  position: absolute;
+  left: 20px;
+  top: -85px;
+  z-index: 2;
+  border: 5px solid white;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.profile .user .avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.camera button {
+  background: transparent;
+  color: rgb(249, 212, 63);
+  border: none;
+  font-size: 20px;
+  cursor: pointer; /* Add cursor pointer */
+  transition: color 0.3s ease; /* Smooth transition */
+}
+
+.camera button:hover {
+  color: #ee5469; /* Change color on hover */
+}
+
+.profile .user .actions {
+  float: right;
+}
+
+.profile .user .actions .btn {
+  margin-bottom: 0px;
+}
+
+.profile .info {
+  margin-top: 50px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info .name {
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 10px;
+}
+
+.info .email {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 5px;
+  margin-top: 10px;
+}
+
+.img-profile {
+  height: 100px;
+  width: 100px;
+}
+
+.img-cover {
+  width: 800px;
+  height: 300px;
+}
+
+.actions {
+  margin-right: 20px;
+}
+
+.actions .btn-group .createdOn {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.edit-buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-buttons a {
+  margin-bottom: 5px;
+  text-decoration: none;
+  color: black;
+  border: 0.01rem solid black;
+  font-size: 14px;
+  padding: 2px;
+  text-align: center;
+  border-radius: 3px;
+  background-color: rgb(244, 242, 242);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+}
+
+.edit-buttons a:hover {
+  background-color: #ee5469; /* Change background color on hover */
+  color: white; /* Change text color on hover */
+}
+.newPost {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* CSS */
+.button-28 {
+  appearance: none;
+  background-color: #fef3f5;
+  border: 2px solid #1a1a1a;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #3b3b3b;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 25%;
+  will-change: transform;
+  font-size: 20px;
+  width: 500px;
+}
+
+.button-28:disabled {
+  pointer-events: none;
+}
+
+.button-28:hover {
+  color: #fff;
+  background-color: #fc7c92;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-28:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+@media screen and (max-width: 440px) {
+  .profile .image {
+    height: 150px;
+  }
+  .profile .image img {
+    height: 150px;
+  }
+  .profile .uploadCover {
+    font-size: 10px;
+  }
+  .profile .user .avatar {
+    left: 15px;
+    top: -55px;
+    border: 3px solid white;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 0px;
+  }
+  .profile .user .avatar img {
+    margin-bottom: 0px;
+  }
+  .actions {
+    margin-right: 10px;
+  }
+  .actions .btn-group .createdOn {
+    font-size: 12px;
+    font-weight: 450;
+  }
+  .edit-buttons {
+    margin-top: 10px;
+  }
+  .edit-buttons a {
+    font-size: 10px;
+    padding: 1px 0px;
+  }
+  .profile .info {
+    gap: 0px;
+  }
+  .info .name {
+    font-size: 20px;
+    line-height: 18px;
+    margin-top: 0px;
+    height: 21px;
+    width: 200px;
+  }
+  .info .email {
+    font-size: 12px;
+    line-height: 5px;
+  }
+  .button-28 {
+    border: 2px solid #1a1a1a;
+    border-radius: 15px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    min-height: 20px;
+    min-width: 0;
+    outline: none;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 60%;
+    will-change: transform;
+    font-size: 14px;
+  }
+
+  .button-28:disabled {
+    pointer-events: none;
+  }
+
+  .button-28:hover {
+    color: #fff;
+    background-color: #fc7c92;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+  }
+
+  .button-28:active {
+    box-shadow: none;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (min-width: 440px) and (max-width: 675px) {
+  /* Add specific styles if needed for this range */
+}
+
+@media screen and (min-width: 675px) {
+  /* Add specific styles if needed for this range */
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - www.codingnepalweb.com -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update User Details</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/addPost2.css" />
+    <link rel="icon" type="image/png" href="/images/feather_transparent3.png" />
+  </head>
+  <body>
+    <%-include("../partials/navbar.ejs") %>
+
+    <div class="wrapper">
+      <form action="/api/v1/users/update?_method=put" method="POST">
+        <h2>Update Details <i class="fas fa-user-plus"></i></h2>
+        <%if(error){%>
+        <small class="error">
+          <i class="fas fa-exclamation-circle"></i>
+          <%=error%>
+        </small>
+        <%}%>
+        <div class="input-field">
+          <label for="name">User Name</label>
+          <input
+            type="text"
+            value="<%=user?.username%>"
+            name="username"
+            id="name"
+          />
+        </div>
+
+        <button type="submit">Update User name</button>
+      </form>
+    </div>
+
+    <div class="foot"><%-include("../partials/footer.ejs") %></div>
+  </body>
+</html>

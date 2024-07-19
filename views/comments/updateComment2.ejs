@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - www.codingnepalweb.com -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Comment</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/addPost2.css" />
+    <link rel="icon" type="image/png" href="/images/feather_transparent3.png" />
+  </head>
+  <body>
+    <%-include("../partials/navbar.ejs") %>
+
+    <div class="wrapper">
+      <form
+        action="/api/v1/comments/<%=comment?._id%>?_method=put&postID=<%=comment.post%>"
+        method="POST"
+      >
+        <h2>Update Comment</h2>
+        <%if(error){%>
+        <small class="error">
+          <i class="fas fa-exclamation-circle"></i>
+          <%=error%>
+        </small>
+        <%}%>
+        <div class="input-field">
+          <label for="password">Message</label>
+          <input
+            value="<%=comment?.message%> "
+            type="text"
+            name="message"
+            required
+          />
+        </div>
+
+        <button type="submit">Update</button>
+      </form>
+    </div>
+
+    <div class="foot"><%-include("../partials/footer.ejs") %></div>
+  </body>
+</html>

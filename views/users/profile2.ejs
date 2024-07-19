@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/profile2.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <title>Profile</title>
+    <link rel="icon" type="image/png" href="/images/feather_transparent3.png" />
+  </head>
+  <body>
+    <%-include("../partials/navbar.ejs") %>
+
+    <div class="container">
+      <div>
+        <div class="baap">
+          <div class="profile">
+            <div class="image">
+              <div class="uploadCover">
+                <a href="/api/v1/users/upload-cover-photo-form"
+                  ><i
+                    class="fa-solid fa-pen"
+                    style="color: rgb(253, 53, 86)"
+                  ></i
+                ></a>
+              </div>
+              <img src="<%=user?.coverImage%>" />
+            </div>
+            <div class="user">
+              <div class="avatar">
+                <img src="<%=user?.profileImage%>" />
+              </div>
+
+              <!-- <h2>Martin maoth</h2> -->
+              <div class="actions">
+                <div class="btn-group">
+                  <div class="createdOn">
+                    Created on: <%=user?.createdAt.toLocaleDateString()%>
+                  </div>
+                  <div class="createdOn">
+                    Number of posts: <%=user?.posts.length%>
+                  </div>
+                  <div class="edit-buttons">
+                    <a href="/api/v1/users/<%=user?._id%>">Edit User name</a>
+                    <a href="/api/v1/users/update-user-password"
+                      >Update Password</a
+                    >
+                    <a href="/api/v1/users/upload-profile-photo-form"
+                      >Change Profile Photo</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="info">
+              <span class="name"><%=user?.username%></span>
+              <span class="email"><%=user?.email%></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="newPost">
+      <a class="button-28" role="button" href="/api/v1/posts/get-post-form"
+        >New Post</a
+      >
+    </div>
+    <div class="latest-post-title" style="font-size: 15px; margin: 35px 0">
+      <!-- Icon -->
+      <i class="fas fa-book-open"></i>
+      <h1>Posts created by you</h1>
+    </div>
+    <section class="container-flex">
+      <%if(user?.posts?.length<=0){ %>
+      <h1>You have no posts</h1>
+      <%}else{%> <%user?.posts?.forEach((post)=>{ %>
+      <article class="post-content">
+        <p class="post-category"><span>Category: <%=post?.category%></span></p>
+        <img
+          src="<%=post?.image%>"
+          alt=""
+          class="post-image"
+          style="border: 2px solid #70aeae"
+        />
+        <p class="post-info">
+          <!-- <span class="post-author">
+              <i class="fas fa-user"></i>
+              <a href="#"><%=user?.fullname%></a>
+            </span> -->
+          <span class="post-date">
+            <i class="far fa-calendar-alt"></i>
+            <time datetime="2020-01-01"
+              ><%=post?.createdAt.toLocaleDateString()%></time
+            >
+          </span>
+        </p>
+        <h1 class="post-title"><%=truncatePost(post?.title)%></h1>
+
+        <a href="/api/v1/posts/<%=post?._id%>" class="post-read-more"
+          ><i class="fa-solid fa-arrow-right" style="font-size: 23px"></i
+        ></a>
+      </article>
+      <%})%> <%}%>
+    </section>
+    <%-include("../partials/footer.ejs") %>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/profile2.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <title>Profile</title>
+    <link rel="icon" type="image/png" href="/images/feather_transparent3.png" />
+  </head>
+  <body>
+    <%-include("../partials/navbar.ejs") %> <%if(error){%>
+    <small class="error">
+      <i
+        class="fas fa-exclamation-circle"
+        style="margin-top: 80px; margin-left: 20px"
+      ></i>
+      <%=error%>
+    </small>
+    <%}else{%>
+    <div class="container">
+      <div>
+        <div class="baap">
+          <div class="profile">
+            <div class="image">
+              <img src="<%=u?.coverImage%>" />
+            </div>
+            <div class="user">
+              <div class="avatar">
+                <img src="<%=u?.profileImage%>" />
+              </div>
+
+              <!-- <h2>Martin maoth</h2> -->
+              <div class="actions">
+                <div class="btn-group">
+                  <div class="createdOn">
+                    Created on: <%=u?.createdAt?.toLocaleDateString()%>
+                  </div>
+                  <div class="createdOn">
+                    Number of posts: <%=u?.posts.length%>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="info">
+              <span class="name"><%=u?.username%></span>
+              <span class="email"><%=u?.email%></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="latest-post-title"
+      style="
+        font-size: 15px;
+        margin: 35px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      "
+    >
+      <!-- Icon -->
+
+      <i class="fas fa-book-open"></i>
+      <h1 style="text-transform: none">Posts created by <%=u?.username%></h1>
+    </div>
+    <section class="container-flex">
+      <%if(u?.posts?.length<=0){ %>
+      <h1>No posts</h1>
+      <%}else{%> <%u?.posts?.forEach((post)=>{ %>
+      <article class="post-content">
+        <p class="post-category"><span>Category: <%=post?.category%></span></p>
+        <img src="<%=post?.image%>" alt="" class="post-image" />
+        <p class="post-info">
+          <!-- <span class="post-author">
+              <i class="fas fa-user"></i>
+              <a href="#"><%=u?.fullname%></a>
+            </span> -->
+          <span class="post-date">
+            <i class="far fa-calendar-alt"></i>
+            <time datetime="2020-01-01"
+              ><%=post?.createdAt?.toLocaleDateString()%></time
+            >
+          </span>
+        </p>
+        <h1 class="post-title"><%=truncatePost(post?.title)%></h1>
+
+        <a href="/api/v1/posts/<%=post?._id%>" class="post-read-more"
+          ><i class="fa-solid fa-arrow-right" style="font-size: 23px"></i
+        ></a>
+      </article>
+      <%})%> <%}%>
+    </section>
+    <%}%> <%-include("../partials/footer.ejs") %>
+  </body>
+</html>

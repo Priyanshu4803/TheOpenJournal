@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - www.codingnepalweb.com -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Cover Photo</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/addPost2.css" />
+    <link rel="icon" type="image/png" href="/images/feather_transparent3.png" />
+
+    <script>
+      // Client-side validation for file size
+      function validateFileSize() {
+        var fileInput = document.getElementById("cover");
+        if (fileInput.files[0]) {
+          var fileSize = fileInput.files[0].size; // Size in bytes
+          var maxSize = 4 * 1024 * 1024; // 6MB in bytes
+          if (fileSize > maxSize) {
+            alert("File size should not exceed 4MB");
+            return false;
+          }
+        }
+        return true;
+      }
+    </script>
+  </head>
+  <body>
+    <%-include("../partials/navbar.ejs") %>
+
+    <div class="wrapper">
+      <form
+        action="/api/v1/users/cover-photo-upload?_method=PUT"
+        method="post"
+        enctype="multipart/form-data"
+        onsubmit="return validateFileSize()"
+      >
+        <h2>Upload Cover Photo</h2>
+        <% if (error) { %>
+        <small class="error">
+          <i class="fas fa-exclamation-circle"></i>
+          <%= error %>
+        </small>
+        <% } %>
+        <div class="input-field">
+          <label for="email">Select Image (Max 4MB)</label>
+          <div class="bottom">
+            <input type="file" id="cover" name="profile" accept="image/*" />
+          </div>
+        </div>
+
+        <button type="submit">
+          <i class="fa-solid fa-upload"></i>
+        </button>
+      </form>
+    </div>
+
+    <div class="foot"><%-include("../partials/footer.ejs") %></div>
+  </body>
+</html>

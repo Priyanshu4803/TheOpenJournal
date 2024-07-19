@@ -1,0 +1,116 @@
+<!-- Fontawesome -->
+<script
+  src="https://kit.fontawesome.com/42a182743f.js"
+  crossorigin="anonymous"
+></script>
+<!-- Google font -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Roboto:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/css/navbar.css" />
+<!-- nav -->
+<nav>
+  <div class="logo" onclick="redirectToPage('/')">
+    <!-- <img src="/images/logo5.png" alt="logo" /> -->
+    The Open
+    <p>
+      Journal
+      <i class="fa-solid fa-feather-pointed" style="font-size: 20px"></i>
+    </p>
+  </div>
+
+  <ul id="ul">
+    <% if (userAuth) { %>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/api/v1/posts/AllPosts">All Posts</a>
+    </li>
+    <li>
+      <a href="/api/v1/users/profile-page">Profile</a>
+    </li>
+    <li>
+      <a href="/api/v1/posts/get-post-form">New Post</a>
+    </li>
+    <li>
+      <a
+        href="#"
+        onclick="confirmLogout(event)"
+        style="color: #1a6c85; text-decoration: none"
+        >Logout</a
+      >
+    </li>
+    <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+    <!-- <a class="bars"><i class="fa-solid fa-bars"></i></a> -->
+
+    <% } else { %>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/api/v1/posts/AllPosts">All Posts</a>
+    </li>
+    <li>
+      <a href="/api/v1/users/login">Sign In</a>
+    </li>
+    <a id="close"><i class="fa-solid fa-xmark"></i></a>
+
+    <!-- <li>
+      <a href="/api/v1/users/register">Register</a>
+    </li> -->
+
+    <% } %>
+  </ul>
+  <a id="bar" style="cursor: pointer"><i class="fas fa-outdent"></i></a>
+</nav>
+
+<script>
+  function redirectToPage(url) {
+    window.location.href = url;
+  }
+
+  function confirmLogout(event) {
+    event.preventDefault();
+    const userConfirmed = confirm("Do you really want to logout?");
+    if (userConfirmed) {
+      window.location.href = "/api/v1/users/logout";
+    }
+  }
+</script>
+
+<script>
+  // Get the current page URL
+  const currentPage = window.location.href;
+  const currentPage2 = window.location.href + "#";
+  console.log(currentPage);
+  // Get the links in the navbar
+  const links = document.querySelectorAll("nav a");
+
+  // Loop through the links and add the active class to the link corresponding to the current page
+  links.forEach((link) => {
+    if (link.href === currentPage || link.href === currentPage2) {
+      link.classList.add("active");
+    }
+  });
+</script>
+
+<script>
+  const bar = document.getElementById("bar");
+  const nav = document.getElementById("ul");
+  const close = document.getElementById("close");
+
+  if (bar) {
+    bar.addEventListener("click", () => {
+      nav.classList.add("display");
+    });
+  }
+  if (close) {
+    close.addEventListener("click", () => {
+      nav.classList.remove("display");
+    });
+  }
+</script>

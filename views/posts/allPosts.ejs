@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/allPosts.css" />
+    <link rel="icon" type="image/png" href="/images/feather_transparent3.png" />
+    <title>Posts</title>
+    <style>
+      /* Default select styles */
+      select {
+        border: 2px solid #4caf50;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 16px; /* Add smooth transition for border color */
+      }
+      /* Custom focus styles */
+      select:focus {
+        outline: none; /* Remove default focus outline */
+        border: 2px solid #4caf50;
+        box-shadow: 0 0 5px rgba(0, 128, 0, 0.5); /* Add box shadow on focus */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- nav -->
+    <%- include("../partials/navbar.ejs") %>
+    <form class="search-container">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search for posts by title"
+        oninput="debounceHandleSearch(event)"
+      />
+    </form>
+    <div class="categorySelect">
+      <h3>Select Category</h3>
+      <select id="categorySelect" onchange="filterPostsByCategory()">
+        <option value="All">All</option>
+        <option value="Technology">Technology</option>
+        <option value="Travel">Travel</option>
+        <option value="Food">Food</option>
+        <option value="LifeStyle">LifeStyle</option>
+        <option value="Education">Education</option>
+        <option value="Fitness">Fitness</option>
+        <option value="Finance">Finance</option>
+        <option value="Sport">Sport</option>
+        <option value="Photography">Photography</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <section
+      class="container-flex"
+      id="postsContainer"
+      style="margin-top: 10px"
+    >
+      <% if(posts?.length <= 0) { %>
+      <h2>No post found</h2>
+      <% } else { %> <% posts.forEach((post) => { %>
+      <article class="post-content" data-category="<%= post?.category %>">
+        <p class="post-category">
+          <span>Category: <%= post?.category %></span>
+        </p>
+        <img
+          src="<%= post?.image %>"
+          alt=""
+          class="post-image"
+          style="border: 2px solid #70aeae"
+        />
+        <p class="post-info">
+          <span
+            class="post-author"
+            style="word-break: break-all; text-transform: none"
+          >
+            <i class="fas fa-user"></i>
+            <a href="#"><%=truncatePost(post?.user?.username)%></a>
+          </span>
+          <span class="post-date">
+            <i class="far fa-calendar-alt"></i>
+            <time datetime="2020-01-01"
+              ><%= post?.createdAt.toLocaleDateString() %></time
+            >
+          </span>
+        </p>
+        <h1 class="post-title"><%= truncatePost(post?.title) %></h1>
+        <a href="/api/v1/posts/<%= post?._id %>" class="post-read-more"
+          ><i class="fa-solid fa-arrow-right" style="font-size: 23px"></i
+        ></a>
+      </article>
+      <% }) %> <% } %>
+    </section>
+
+    <!-- footer -->
+
+    <script>
+      function filterPostsByCategory() {
+        const selectedCategory =
+          document.getElementById("categorySelect").value;
+        document.getElementById("categorySelect").style.borderColor = "green";
+        const posts = document.querySelectorAll(".post-content");
+
+        posts.forEach((post) => {
+          if (
+            selectedCategory === "All" ||
+            post.dataset.category === selectedCategory
+          ) {
+            post.style.display = "block";
+          } else {
+            post.style.display = "none";
+          }
+        });
+      }
+
+      function debounce(func, wait) {
+        let timeout;
+        return function (...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+      }
+
+      function handleSearch(event) {
+        searchPosts();
+      }
+
+      const debounceHandleSearch = debounce(handleSearch, 500); // 300ms delay
+
+      function searchPosts() {
+        const searchQuery = document
+          .getElementById("searchInput")
+          .value.trim()
+          .toLowerCase();
+        console.log(searchQuery);
+        const posts = document.querySelectorAll(".post-content");
+
+        posts.forEach((post) => {
+          const title = post
+            .querySelector(".post-title")
+            .textContent.trim()
+            .toLowerCase();
+
+          if (title.includes(searchQuery)) {
+            post.style.display = "block";
+          } else {
+            post.style.display = "none";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
+<%- include("../partials/footer.ejs") %>

@@ -3,7 +3,8 @@ const User = require("../../model/user/User");
 const appErr = require("../../utils/appErr");
 const twilio = require("twilio");
 const nodemailer = require("nodemailer");
-
+const dotenv = require("dotenv");
+dotenv.config();
 //register
 // const client = new twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
@@ -14,7 +15,7 @@ const sendOTPEmail = async (recipientEmail, otp) => {
       service: "gmail",
       auth: {
         user: "theopenjournalweb@gmail.com", // Your Gmail address
-        pass: "vixx jvlh dugj hqtt", // Your Gmail password or App Password
+        pass: process.env.APP_PASSWORD, // Your Gmail password or App Password
       },
     });
 

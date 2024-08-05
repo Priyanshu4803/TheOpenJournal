@@ -40,7 +40,7 @@ const sendUPEmail = async (recipientEmail, otp) => {
       service: "gmail",
       auth: {
         user: "theopenjournalweb@gmail.com", // Your Gmail address
-        pass: "vixx jvlh dugj hqtt", // Your Gmail password or App Password
+        pass: process.env.APP_PASSWORD, // Your Gmail password or App Password
       },
     });
 
